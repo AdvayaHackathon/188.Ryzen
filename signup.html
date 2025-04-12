@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Doctor Portal | My Cancer App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .fade { transition: all 0.4s ease-in-out; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-[#f1f5f9] to-[#e0ecff] min-h-screen flex items-center justify-center px-4">
+
+  <div class="bg-white shadow-xl rounded-3xl w-full max-w-5xl overflow-hidden grid md:grid-cols-2 fade">
+    
+    <!-- Left Side -->
+    <div class="hidden md:flex flex-col justify-center items-center bg-[#004080] text-white p-10 space-y-4">
+      <img src="https://img.icons8.com/external-flat-juicy-fish/344/external-doctor-medical-flat-flat-juicy-fish.png" class="w-52" alt="Doctor"/>
+      <h2 class="text-3xl font-bold">My Cancer App</h2>
+      <p class="text-lg">Secure Doctor Access Portal</p>
+    </div>
+
+    <!-- Auth Container -->
+    <div class="p-10 w-full" id="authContainer">
+      <!-- Role Dropdown -->
+      <div class="flex justify-end mb-4">
+        <select id="roleSelector" class="border border-gray-300 rounded-lg p-2 text-sm focus:outline-none">
+          <option value="doctor">Doctor</option>
+          <option value="researcher">Researcher</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+
+      <!-- Sign In -->
+      <div id="signInForm">
+        <h2 class="text-2xl font-bold text-[#004080] mb-2">Sign In</h2>
+        <p class="text-sm text-gray-600 mb-6">Welcome back, please log in</p>
+        <form class="space-y-4">
+          <input type="email" placeholder="Email" class="w-full p-3 border border-gray-300 rounded-lg" />
+          <input type="password" placeholder="Password" class="w-full p-3 border border-gray-300 rounded-lg" />
+          <button type="button" onclick="redirectToDashboard()" class="w-full bg-[#004080] text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+            Login
+          </button>
+        </form>
+        <p class="mt-6 text-sm text-gray-600 text-center">
+          New here?
+          <button onclick="toggleForm()" class="text-blue-500 hover:underline font-medium">Create account</button>
+        </p>
+      </div>
+
+      <!-- Sign Up -->
+      <div id="signUpForm" class="hidden fade">
+        <h2 class="text-2xl font-bold text-[#004080] mb-2">Create Account</h2>
+        <p class="text-sm text-gray-600 mb-6">Fill in the details to join</p>
+        <form class="space-y-4">
+          <input type="text" placeholder="Full Name" class="w-full p-3 border border-gray-300 rounded-lg" />
+          <input type="email" placeholder="Email" class="w-full p-3 border border-gray-300 rounded-lg" />
+          <input type="password" placeholder="Password" class="w-full p-3 border border-gray-300 rounded-lg" />
+          <input type="text" placeholder="Specialization" class="w-full p-3 border border-gray-300 rounded-lg" />
+          <input type="file" accept="image/*" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50" />
+          <label class="block text-sm font-medium text-gray-700 mt-2">Upload Medical License / ID Proof:</label>
+          <input type="file" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50" />
+          <button class="w-full bg-[#004080] text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Register</button>
+        </form>
+        <p class="mt-6 text-sm text-gray-600 text-center">
+          Already have an account?
+          <button onclick="toggleForm()" class="text-blue-500 hover:underline font-medium">Sign in</button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleForm() {
+      const signIn = document.getElementById('signInForm');
+      const signUp = document.getElementById('signUpForm');
+      signIn.classList.toggle('hidden');
+      signUp.classList.toggle('hidden');
+    }
+
+    const roleSelector = document.getElementById("roleSelector");
+    roleSelector.addEventListener("change", () => {
+      alert(`Role changed to: ${roleSelector.value.toUpperCase()} 👨‍⚕️`);
+    });
+
+    function redirectToDashboard() {
+      // Redirect to another HTML page
+      window.location.href = "home.html";
+    }
+  </script>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Smart AI Chatbot Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .fade-in {
+        animation: fadeIn 0.3s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+      }
+    </style>
+  </head>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Smart AI Chatbot Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .fade-in {
+        animation: fadeIn 0.3s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-950 text-white">
+  
+    <!-- Floating Chatbot -->
+    <div id="chatbot" class="fixed bottom-6 right-6 w-80 max-w-sm bg-gray-900 shadow-2xl rounded-2xl overflow-hidden fade-in border border-blue-600 hidden z-50">
+      <div class="bg-blue-600 px-4 py-3 font-bold text-white text-center">🤖 AI Assistant</div>
+      <div id="chatWindow" class="h-64 overflow-y-scroll p-4 space-y-3 text-sm bg-gray-800">
+        <div class="text-gray-400">Hi! I'm your AI assistant. Ask anything about the portal 👨‍⚕️</div>
+      </div>
+      <div class="flex border-t border-gray-700">
+        <input id="userMsg" type="text" placeholder="Ask something..." class="flex-1 px-3 py-2 bg-gray-900 text-white placeholder-gray-400 outline-none"/>
+        <button id="sendBtn" class="px-4 bg-green-600 hover:bg-green-700">Send</button>
+      </div>
+    </div>
+  
+    <!-- Chat Icon Button -->
+    <button id="chatToggle" class="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 p-4 rounded-full shadow-xl text-white z-50">
+      💬
+    </button>
+  
+    <!-- JavaScript -->
+    <script>
+      const toggleBtn = document.getElementById("chatToggle");
+      const chatbot = document.getElementById("chatbot");
+      const sendBtn = document.getElementById("sendBtn");
+      const userMsg = document.getElementById("userMsg");
+      const chatWindow = document.getElementById("chatWindow");
+  
+      toggleBtn.addEventListener("click", () => {
+        chatbot.classList.toggle("hidden");
+      });
+  
+      sendBtn.addEventListener("click", () => {
+        const msg = userMsg.value.trim();
+        if (!msg) return;
+        appendMessage("🧑‍⚕️", msg);
+        userMsg.value = "";
+        setTimeout(() => {
+          const reply = getAutoReply(msg.toLowerCase());
+          appendMessage("🤖", reply);
+        }, 1200);
+      });
+  
+      function appendMessage(sender, message) {
+        const p = document.createElement("p");
+        p.innerHTML = `<strong>${sender}</strong> ${message}`;
+        p.classList.add("text-white");
+        chatWindow.appendChild(p);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+      }
+  
+      function getAutoReply(input) {
+        if (input.includes("upload")) return "Navigate to 'Upload Report' under Dashboard.";
+        if (input.includes("ai")) return "Use the AI Second Opinion section to get insights.";
+        if (input.includes("chat")) return "Go to D2D Chat to connect with other doctors.";
+        if (input.includes("help")) return "Visit the Help tab or ask me directly!";
+        return "I'm not sure about that yet. Try asking about AI, upload, or chat.";
+      }
+    </script>
+  </body>
+  </html>
+  
+
+  
+</body>
+</html>

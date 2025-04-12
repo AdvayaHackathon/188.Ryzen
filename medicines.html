@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Medicines</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #f0fdf4, #ccfbf1);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+    }
+    h2 {
+      text-align: center;
+      color: #065f46;
+      margin-bottom: 25px;
+    }
+    .medicine-card {
+      background-color: #ecfdf5;
+      border-left: 6px solid #10b981;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    }
+    .medicine-name {
+      font-size: 1.4rem;
+      color: #064e3b;
+      font-weight: bold;
+    }
+    .medicine-info {
+      font-size: 0.95rem;
+      color: #334155;
+      margin-top: 10px;
+    }
+    .schedule {
+      background-color: #d1fae5;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+      color: #065f46;
+    }
+    .voice-btn {
+      background-color: #10b981;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 25px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .voice-btn:hover {
+      background-color: #047857;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>💊 My Medicines</h2>
+
+    <div class="medicine-card">
+      <div class="medicine-name">Capecitabine 500mg</div>
+      <div class="medicine-info">Used for: Chemotherapy - Breast Cancer</div>
+      <div class="schedule">Dosage: 1 tablet after meals – Morning & Night</div>
+    </div>
+
+    <div class="medicine-card">
+      <div class="medicine-name">Ondansetron 4mg</div>
+      <div class="medicine-info">Used for: Nausea prevention during Chemo</div>
+      <div class="schedule">Dosage: 1 tablet before chemotherapy session</div>
+    </div>
+
+    <div class="medicine-card">
+      <div class="medicine-name">Pantoprazole 40mg</div>
+      <div class="medicine-info">Used for: Gastric protection with cancer drugs</div>
+      <div class="schedule">Dosage: 1 tablet on empty stomach (morning)</div>
+    </div>
+
+    <button class="voice-btn" onclick="speakMedicines()">🔊 Speak Medicines</button>
+  </div>
+
+  <script>
+    function speakMedicines() {
+      const meds = [
+        "Capecitabine 500 milligram – 1 tablet after meals, morning and night.",
+        "Ondansetron 4 milligram – 1 tablet before chemotherapy session.",
+        "Pantoprazole 40 milligram – 1 tablet on empty stomach in the morning."
+      ];
+      const utterance = new SpeechSynthesisUtterance(meds.join(" "));
+      utterance.lang = 'en-IN';
+      window.speechSynthesis.speak(utterance);
+    }
+  </script>
+</body>
+</html>

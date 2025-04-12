@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAQ Section</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9fafb;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .faq-container {
+      max-width: 800px;
+      width: 100%;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+
+    .faq-container h2 {
+      text-align: center;
+      color: #111827;
+      margin-bottom: 30px;
+      font-size: 2rem;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #e5e7eb;
+      padding: 15px 0;
+    }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #1f2937;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      color: #4b5563;
+      padding-left: 5px;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+      margin-top: 10px;
+    }
+
+    .faq-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    @media (max-width: 600px) {
+      .faq-container {
+        padding: 20px;
+      }
+      .faq-question {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="faq-container">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        What is cancer and how does it form?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        Cancer is a disease where cells grow uncontrollably. It can start almost anywhere in the body and may spread to other parts.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        How can I book an appointment with a specialist?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        You can book an appointment from your dashboard under the 'Appointments' section. Select your doctor and preferred date/time.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        Are my reports and data secure?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        Yes, all patient data is encrypted and securely stored. Only authorized professionals can access it.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        What should I do in case of emergency?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        Use the Emergency Help button on your dashboard. You can call an ambulance, notify police, or share your location with a relative.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        Can I view my medicine schedule and dosage?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        Yes, the 'My Medicine' tab shows your full prescription, timings, and dosage instructions.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleFAQ(element) {
+      const item = element.parentElement;
+      item.classList.toggle('active');
+    }
+  </script>
+
+</body>
+</html>

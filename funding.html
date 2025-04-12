@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancer App - Funding Features</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        header {
+            background-color: #000000;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .campaign-card {
+            background: #1e1e1e;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .campaign-card h3 {
+            margin-top: 10px;
+            color: #ffffff;
+        }
+
+        .donate-btn {
+            background-color: #76ff03;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .donate-btn:hover {
+            background-color: #5ac602;
+        }
+
+        footer {
+            background: #000000;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Cancer Support App</h1>
+    </header>
+
+    <!-- Campaign Section -->
+    <section class="container">
+        <h2>Support Campaigns</h2>
+        <div id="campaign-list">
+            <!-- Campaigns will be dynamically loaded -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 Cancer Support App | Together, we can make a difference.</p>
+    </footer>
+
+    <!-- Razorpay Script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script>
+        // Sample Campaign Data
+        const campaigns = [
+            { id: 1, title: "Help Alice Fight Cancer", goal: 500000, collected: 200000 },
+            { id: 2, title: "Support Bob's Treatment", goal: 300000, collected: 150000 },
+            { id: 3, title: "Fundraising for Charlie", goal: 1000000, collected: 700000 },
+        ];
+
+        // Razorpay API Key (Replace with your actual key)
+        const razorpayKey = "YOUR_RAZORPAY_API_KEY";
+
+        // Render Campaigns
+        const renderCampaigns = () => {
+            const campaignList = document.getElementById('campaign-list');
+            campaignList.innerHTML = '';
+            campaigns.forEach(campaign => {
+                const card = document.createElement('div');
+                card.classList.add('campaign-card');
+                card.innerHTML = `
+                    <h3>${campaign.title}</h3>
+                    <p>Goal: ₹${campaign.goal.toLocaleString()}</p>
+                    <p>Collected: ₹${campaign.collected.toLocaleString()}</p>
+                    <button class="donate-btn" onclick="donate(${campaign.id})">Donate Now</button>
+                `;
+                campaignList.appendChild(card);
+            });
+        };
+
+        // Donation Function
+        const donate = (campaignId) => {
+            const campaign = campaigns.find(c => c.id === campaignId);
+            const amount = prompt(`Enter the amount you want to donate for "${campaign.title}" (in INR):`);
+
+            if (!amount || isNaN(amount) || amount <= 0) {
+                alert("Please enter a valid amount.");
+                return;
+            }
+
+            // Razorpay Payment Integration
+            const options = {
+                key: razorpayKey,
+                amount: amount * 100, // Amount in paisa
+                currency: "INR",
+                name: "Cancer Support App",
+                description: `Donation for ${campaign.title}`,
+                handler: (response) => {
+                    alert(`Thank you for your donation! Payment ID: ${response.razorpay_payment_id}`);
+                    updateCampaign(campaignId, parseInt(amount));
+                },
+                prefill: {
+                    name: "Donor Name",
+                    email: "donor@example.com",
+                    contact: "9999999999"
+                },
+                theme: {
+                    color: "#76ff03"
+                }
+            };
+            const rzp = new Razorpay(options);
+            rzp.open();
+        };
+
+        // Update Campaign Progress
+        const updateCampaign = (campaignId, amount) => {
+            const campaign = campaigns.find(c => c.id === campaignId);
+            campaign.collected += amount;
+            renderCampaigns();
+        };
+
+        // Initialize App
+        renderCampaigns();
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancer Support App - Live Interaction</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #000000;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #76ff03;
+        }
+
+        .campaign-card {
+            background: #1e1e1e;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .campaign-card h3 {
+            margin-top: 10px;
+        }
+
+        .donate-btn {
+            background-color: #76ff03;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .donate-btn:hover {
+            background-color: #5ac602;
+        }
+
+        /* Live Chat */
+        .live-chat {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background: #1e1e1e;
+            border: 2px solid #76ff03;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .live-chat-header {
+            background: #76ff03;
+            color: black;
+            padding: 10px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+
+        .live-chat-messages {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .live-chat-input {
+            display: flex;
+            padding: 10px;
+        }
+
+        .live-chat-input input {
+            flex: 1;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #333333;
+            border-radius: 5px;
+            color: #000;
+        }
+
+        .live-chat-input button {
+            padding: 10px 20px;
+            background-color: #76ff03;
+            border: none;
+            border-radius: 5px;
+            color: black;
+            cursor: pointer;
+        }
+
+        .live-chat-input button:hover {
+            background-color: #5ac602;
+        }
+
+        /* Leaderboard */
+        .leaderboard {
+            margin: 20px 0;
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .leaderboard h3 {
+            margin-bottom: 20px;
+        }
+
+        .leaderboard ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .leaderboard li {
+            padding: 10px 0;
+            border-bottom: 1px solid #333333;
+        }
+
+        .leaderboard li:last-child {
+            border-bottom: none;
+        }
+
+        /* Testimonials */
+        .testimonial-form {
+            background: #1e1e1e;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .testimonial-form input,
+        .testimonial-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #333333;
+            border-radius: 5px;
+            color: #000;
+        }
+
+        .testimonial-form button {
+            background-color: #76ff03;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .testimonial-form button:hover {
+            background-color: #5ac602;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Cancer Support App</h1>
+    </header>
+
+    <section class="container">
+        <h2>Support Campaigns</h2>
+        <div id="campaign-list">
+            <!-- Campaigns will be dynamically loaded -->
+        </div>
+    </section>
+
+    <!-- Leaderboard -->
+    <section class="container leaderboard">
+        <h3>Top Donors</h3>
+        <ul id="leaderboard-list">
+            <!-- Leaderboard will be dynamically updated -->
+        </ul>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="container">
+        <h2>Submit Your Testimonial</h2>
+        <div class="testimonial-form">
+            <input type="text" id="testimonial-name" placeholder="Your Name" />
+            <textarea id="testimonial-message" rows="5" placeholder="Your Message"></textarea>
+            <button onclick="submitTestimonial()">Submit Testimonial</button>
+        </div>
+    </section>
+
+    <!-- Live Chat -->
+    <div class="live-chat" id="live-chat">
+        <div class="live-chat-header">Live Chat Support</div>
+        <div class="live-chat-messages" id="chat-messages">
+            <!-- Messages will appear here -->
+        </div>
+        <div class="live-chat-input">
+            <input type="text" id="chat-input" placeholder="Type your message..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <button onclick="toggleChat()" style="position: fixed; bottom: 80px; right: 20px; background: #76ff03; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">Live Chat</button>
+
+    <footer>
+        <p>© 2024 Cancer Support App | Together, we can make a difference.</p>
+    </footer>
+
+    <script>
+        // Campaign Data
+        const campaigns = [
+            { id: 1, title: "Help Alice Fight Cancer", goal: 500000, collected: 200000 },
+            { id: 2, title: "Support Bob's Treatment", goal: 300000, collected: 150000 },
+            { id: 3, title: "Fundraising for Charlie", goal: 1000000, collected: 700000 },
+        ];
+
+        // Leaderboard Data
+        const leaderboard = [
+            { name: "John Doe", amount: 50000 },
+            { name: "Jane Smith", amount: 30000 },
+            { name: "Alice Johnson", amount: 20000 },
+        ];
+
+        // Render Campaigns
+        const renderCampaigns = () => {
+            const campaignList = document.getElementById('campaign-list');
+            campaignList.innerHTML = '';
+            campaigns.forEach(campaign => {
+                const card = document.createElement('div');
+                card.classList.add('campaign-card');
+                card.innerHTML = `
+                    <h3>${campaign.title}</h3>
+                    <p>Goal: ₹${campaign.goal.toLocaleString()}</p>
+                    <p>Collected: ₹${campaign.collected.toLocaleString()}</p>
+                    <button class="donate-btn">Donate Now</button>
+                `;
+                campaignList.appendChild(card);
+            });
+        };
+
+        // Render Leaderboard
+        const renderLeaderboard = () => {
+            const leaderboardList = document.getElementById('leaderboard-list');
+            leaderboard.forEach(entry => {
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>${entry.name}</strong> - ₹${entry.amount.toLocaleString()}`;
+                leaderboardList.appendChild(li);
+            });
+        };
+
+        // Live Chat
+        const toggleChat = () => {
+            const chat = document.getElementById('live-chat');
+            chat.style.display = chat.style.display === 'none' ? 'block' : 'none';
+        };
+
+        const sendMessage = () => {
+            const input = document.getElementById('chat-input');
+            const messages = document.getElementById('chat-messages');
+            if (input.value.trim()) {
+                const message = document.createElement('div');
+                message.textContent = `You: ${input.value}`;
+                messages.appendChild(message);
+                input.value = '';
+            }
+        };
+
+        // Submit Testimonial
+        const submitTestimonial = () => {
+            const name = document.getElementById('testimonial-name').value;
+            const message = document.getElementById('testimonial-message').value;
+            if (name && message) {
+                alert(`Thank you, ${name}, for your testimonial!`);
+            } else {
+                alert("Please fill out both fields.");
+            }
+        };
+
+        // Initialize
+        renderCampaigns();
+        renderLeaderboard();
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancer Support App - Create Campaign</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #000000;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h2, h3 {
+            color: #76ff03;
+        }
+
+        .form-container {
+            background: #1e1e1e;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .form-container input,
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #333333;
+            border-radius: 5px;
+            color: #000;
+        }
+
+        .form-container button {
+            background-color: #76ff03;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #5ac602;
+        }
+
+        .campaign-card {
+            background: #1e1e1e;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Cancer Support App</h1>
+    </header>
+
+    <!-- Campaign Creation Form -->
+    <section class="container">
+        <h2>Create Your Campaign</h2>
+        <div class="form-container">
+            <input type="text" id="campaign-title" placeholder="Campaign Title" required>
+            <textarea id="campaign-description" rows="5" placeholder="Describe your situation" required></textarea>
+            <input type="number" id="campaign-goal" placeholder="Funding Goal (INR)" required>
+            <input type="file" id="campaign-proof" accept=".jpg, .jpeg, .png, .pdf" required>
+            <button onclick="createCampaign()">Submit Campaign</button>
+        </div>
+    </section>
+
+    <!-- Active Campaigns -->
+    <section class="container">
+        <h2>Active Campaigns</h2>
+        <div id="campaign-list">
+            <!-- Active campaigns will be rendered here -->
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Cancer Support App | Empowering Lives Together.</p>
+    </footer>
+
+    <script>
+        const campaigns = [];
+
+        // Function to Create a Campaign
+        const createCampaign = () => {
+            const title = document.getElementById("campaign-title").value;
+            const description = document.getElementById("campaign-description").value;
+            const goal = document.getElementById("campaign-goal").value;
+            const proof = document.getElementById("campaign-proof").files[0];
+
+            if (!title || !description || !goal || !proof) {
+                alert("Please fill all fields and upload proof!");
+                return;
+            }
+
+            const newCampaign = {
+                id: campaigns.length + 1,
+                title,
+                description,
+                goal: parseInt(goal),
+                collected: 0,
+                proof: proof.name, // Just the file name, actual upload requires backend.
+                verified: false,
+            };
+
+            campaigns.push(newCampaign);
+            alert("Your campaign has been submitted for verification!");
+            renderCampaigns();
+        };
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Before Creating Campaign</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            border: 1px solid #333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #76ff03;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #76ff03;
+        }
+
+        .form-group input, .form-group button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            margin-top: 5px;
+        }
+
+        .form-group input {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .form-group button {
+            background-color: #76ff03;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #64dd17;
+        }
+
+        .success-message {
+            text-align: center;
+            color: #64dd17;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Create Your Campaign</h1>
+    <form id="campaignForm">
+        <div class="form-group">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="amount">Pay Campaign Fee (₹500):</label>
+            <button type="button" id="payNow">Pay Now</button>
+        </div>
+
+        <div id="paymentSuccess" class="success-message">
+            Payment successful! You can now create your campaign.
+        </div>
+
+        <div class="form-group">
+            <button type="submit" id="createCampaign" disabled>Create Campaign</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById("payNow").addEventListener("click", function() {
+        // Simulating payment integration
+        alert("Redirecting to Payment Gateway...");
+        
+        // Payment logic here (e.g., Razorpay or PayPal integration)
+        setTimeout(() => {
+            // Simulate successful payment
+            document.getElementById("paymentSuccess").style.display = "block";
+            document.getElementById("createCampaign").disabled = false;
+        }, 2000); // Simulates a 2-second delay
+    });
+
+    document.getElementById("campaignForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+
+        if (!name || !email) {
+            alert("Please complete all fields!");
+            return;
+        }
+
+        alert(`Campaign Created Successfully!\nName: ${name}\nEmail: ${email}`);
+        // Reset form
+        document.getElementById("campaignForm").reset();
+        document.getElementById("paymentSuccess").style.display = "none";
+        document.getElementById("createCampaign").disabled = true;
+    });
+</script>
+
+</body>
+</html>
+
+
+        // Function to Render Campaigns
+        const renderCampaigns = () => {
+            const campaignList = document.getElementById("campaign-list");
+            campaignList.innerHTML = "";
+
+            campaigns.forEach((campaign) => {
+                const campaignCard = document.createElement("div");
+                campaignCard.classList.add("campaign-card");
+                campaignCard.innerHTML = `
+                    <h3>${campaign.title}</h3>
+                    <p>${campaign.description}</p>
+                    <p>Goal: ₹${campaign.goal.toLocaleString()}</p>
+                    <p>Collected: ₹${campaign.collected.toLocaleString()}</p>
+                    <p>Status: ${campaign.verified ? "Verified ✅" : "Pending Verification ⏳"}</p>
+                    <button ${campaign.verified ? "" : "disabled"} onclick="donateToCampaign(${campaign.id})">Donate Now</button>
+                `;
+                campaignList.appendChild(campaignCard);
+            });
+        };
+
+        // Function to Simulate Donation
+        const donateToCampaign = (id) => {
+            const amount = prompt("Enter the amount you wish to donate (INR):");
+            if (!amount || isNaN(amount) || amount <= 0) {
+                alert("Invalid amount. Please try again.");
+                return;
+            }
+
+            const campaign = campaigns.find((c) => c.id === id);
+            campaign.collected += parseInt(amount);
+            alert(`Thank you for donating ₹${amount} to "${campaign.title}"!`);
+            renderCampaigns();
+        };
+
+        // Initial Render
+        renderCampaigns();
+    </script>
+</body>
+</html>

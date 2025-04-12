@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FDA Drug & Diagnostic Finder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f3f4f6, #e0e7ff);
+      color: #1f2937;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background: #111827;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      animation: fadeInDown 1s ease-out;
+    }
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .container {
+      flex: 1;
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      animation: fadeInUp 1s ease-out;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    h1, h2 {
+      margin-bottom: 1rem;
+    }
+    .search-bar {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 1rem;
+      border: 2px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    button {
+      padding: 1rem 2rem;
+      background: #111827;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #1f2937;
+    }
+    .result-card {
+      background: #f9fafb;
+      border-left: 5px solid #6366f1;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      animation: fadeIn 0.6s ease-in;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #1f2937;
+      color: white;
+      font-size: 0.9rem;
+    }
+    a {
+      color: #6366f1;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>FDA Drug & Diagnostic Finder</h1>
+    <p>Powered by AI to help detect FDA-approved treatments for cancer biomarkers</p>
+  </header>
+
+  <div class="container">
+    <h2>Search Cancer Diagnostic Tests & Treatments</h2>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Enter cancer type, gene marker, or test name...">
+      <button onclick="searchTests()">Search</button>
+    </div>
+    <div id="results"></div>
+  </div>
+
+  <footer>
+    Data source: <a href="https://www.fda.gov/medical-devices/" target="_blank">FDA Medical Devices Database</a>
+  </footer>
+
+  <script>
+    const testDatabase = [
+      {
+        testName: "FoundationOne CDx",
+        type: "Next-Generation Sequencing (NGS)",
+        indication: "Non-Small Cell Lung Cancer (NSCLC)",
+        approvedMedicine: "Osimertinib (Tagrisso)",
+        fdaLink: "https://www.fda.gov/medical-devices/"
+      },
+      {
+        testName: "PD-L1 IHC 22C3 pharmDx",
+        type: "Immunohistochemistry",
+        indication: "Melanoma",
+        approvedMedicine: "Pembrolizumab (Keytruda)",
+        fdaLink: "https://www.fda.gov/medical-devices/"
+      },
+      {
+        testName: "BRACAnalysis CDx",
+        type: "Genetic Testing",
+        indication: "Breast Cancer",
+        approvedMedicine: "Olaparib (Lynparza)",
+        fdaLink: "https://www.fda.gov/medical-devices/"
+      }
+    ];
+
+    function searchTests() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
+
+      const results = testDatabase.filter(test => 
+        test.testName.toLowerCase().includes(query) ||
+        test.indication.toLowerCase().includes(query) ||
+        test.type.toLowerCase().includes(query)
+      );
+
+      if (results.length > 0) {
+        results.forEach(test => {
+          const card = document.createElement('div');
+          card.className = 'result-card';
+          card.innerHTML = `
+            <h3>${test.testName}</h3>
+            <p><strong>Type:</strong> ${test.type}</p>
+            <p><strong>Indication:</strong> ${test.indication}</p>
+            <p><strong>Approved Medicine:</strong> ${test.approvedMedicine}</p>
+            <p><a href="${test.fdaLink}" target="_blank">FDA Details</a></p>
+          `;
+          resultsDiv.appendChild(card);
+        });
+      } else {
+        resultsDiv.innerHTML = '<p>No results found. Try a different search keyword.</p>';
+      }
+    }
+  </script>
+</body>
+</html>

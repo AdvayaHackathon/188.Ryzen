@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Appointment Reminders</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 25px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #1e3a8a;
+      margin-bottom: 30px;
+    }
+    .reminder-card {
+      background: #f9fafb;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+      position: relative;
+    }
+    .reminder-card .status {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: white;
+    }
+    .upcoming { background-color: #10b981; }
+    .missed { background-color: #ef4444; }
+    .completed { background-color: #3b82f6; }
+    .label {
+      font-weight: bold;
+      color: #1f2937;
+    }
+    .details {
+      margin: 10px 0;
+      color: #374151;
+    }
+    .btn-group {
+      margin-top: 15px;
+    }
+    .btn {
+      background-color: #1e40af;
+      color: white;
+      padding: 8px 16px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .btn:hover {
+      background-color: #374151;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📅 Appointment Reminders</h2>
+
+    <div class="reminder-card">
+      <div class="status upcoming">Upcoming</div>
+      <p class="label">Patient:</p>
+      <p class="details">John Doe</p>
+      <p class="label">Date & Time:</p>
+      <p class="details">April 13, 2025 at 10:30 AM</p>
+      <p class="label">Doctor:</p>
+      <p class="details">Dr. Priya Sharma (Oncologist)</p>
+      <div class="btn-group">
+        <button class="btn">⏰ Snooze</button>
+        <button class="btn">🗓️ Reschedule</button>
+      </div>
+    </div>
+
+    <div class="reminder-card">
+      <div class="status missed">Missed</div>
+      <p class="label">Patient:</p>
+      <p class="details">Pihu Mehta</p>
+      <p class="label">Date & Time:</p>
+      <p class="details">April 10, 2025 at 3:00 PM</p>
+      <p class="label">Doctor:</p>
+      <p class="details">Dr. Anubhav Bhatnagar (Radiologist)</p>
+      <div class="btn-group">
+        <button class="btn">🔁 Rebook</button>
+      </div>
+    </div>
+
+    <div class="reminder-card">
+      <div class="status completed">Completed</div>
+      <p class="label">Patient:</p>
+      <p class="details">Aditya Singh</p>
+      <p class="label">Date & Time:</p>
+      <p class="details">April 5, 2025 at 11:15 AM</p>
+      <p class="label">Doctor:</p>
+      <p class="details">Dr. Emily Richards (Surgeon)</p>
+      <div class="btn-group">
+        <button class="btn">📄 View Report</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

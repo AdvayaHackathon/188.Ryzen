@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Symptom Checker & Report Scanner</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .fade-in {
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-black via-gray-900 to-gray-800 min-h-screen text-white flex items-center justify-center px-4 py-10">
+
+  <div class="max-w-4xl w-full bg-gray-900 rounded-3xl shadow-2xl p-8 space-y-10 fade-in">
+    <h1 class="text-3xl md:text-4xl font-bold text-center text-pink-400">🎗️ Symptom Checker & Report Scanner</h1>
+
+    <!-- Symptom Checker -->
+    <form id="symptomForm" class="space-y-6">
+      <div>
+        <label for="symptom" class="block mb-2 text-lg font-semibold">Enter Patient Symptom:</label>
+        <input type="text" id="symptom" name="symptom" required placeholder="e.g. fever, cough"
+               class="w-full px-5 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white text-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+      </div>
+      <button type="button" onclick="checkRecord()"
+              class="bg-pink-600 hover:bg-pink-700 transition duration-300 text-white px-6 py-3 rounded-xl font-semibold shadow-lg w-full">
+        🔍 Check Record and Medicine
+      </button>
+    </form>
+
+    <div id="result" class="text-lg text-white bg-gray-800 border border-gray-700 p-4 rounded-xl"></div>
+
+    <!-- Report Upload Section -->
+    <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
+      <h2 class="text-2xl font-semibold mb-4">📄 Upload Doctor's Report</h2>
+      <input type="file" id="reportFile" accept="image/*"
+             class="w-full text-white border border-gray-700 bg-gray-900 p-3 rounded-xl mb-4">
+      <button type="button" onclick="scanReport()"
+              class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-xl transition duration-300">
+        📤 Scan Report
+      </button>
+      <div id="scanResult" class="mt-4 text-white text-lg"></div>
+    </div>
+  </div>
+
+  <script>
+    const patientRecords = {
+      "cough, chestpain, weightloss": {
+        previousRecord: "78 patients had similar symptoms.\nTest: PD-L1 IHC 22C3 pharmDx.\nBiomarker: EGFR mutation.",
+        medicine: "⚠️ 65% chance of lung cancer. Open Cancer Checker!",
+        notice: "This patient record was recently updated."
+      },
+      "frequent urine, blood in urine": {
+        previousRecord: "98 patients had similar symptoms.\nTest: Prostate-Specific Antigen Test.",
+        medicine: "⚠️ 60% chance of prostate cancer. Open Cancer Checker!",
+        notice: "This patient record was recently updated."
+      }
+    };
+
+    function checkRecord() {
+      const symptom = document.getElementById('symptom').value.toLowerCase().trim();
+      const resultDiv = document.getElementById('result');
+      const record = patientRecords[symptom];
+
+      if (record) {
+        resultDiv.innerHTML = `
+          <p><strong>🧬 Previous Record:</strong> ${record.previousRecord}</p><br>
+          <p><strong>💊 Medicine Guidance:</strong> ${record.medicine}</p><br>
+          <p><strong>📌 Notice:</strong> ${record.notice}</p>
+        `;
+      } else {
+        resultDiv.innerHTML = "<p class='text-red-400 font-bold'>No record found for this symptom.</p>";
+      }
+    }
+
+    function scanReport() {
+      const scanResult = document.getElementById('scanResult');
+      scanResult.innerText = "🧠 AI is analyzing the report... (demo placeholder)";
+    }
+     // Function to scan the doctor's report and use OCR
+     function scanReport() {
+            const fileInput = document.getElementById('reportFile');
+            const scanResultDiv = document.getElementById('scanResult');
+
+            if (fileInput.files.length === 0) {
+                scanResultDiv.innerHTML = "<strong class='no-record'>Please upload a report first.</strong>";
+                return;
+            }
+
+            const reportFile = fileInput.files[0];
+
+            // Display loading message while scanning
+            scanResultDiv.innerHTML = "<strong class='loading'>Scanning report, please wait...</strong>";
+
+            // Use Tesseract.js for OCR to extract text from the image
+            Tesseract.recognize(
+                reportFile,
+                'eng',
+                {
+                    logger: function(m) {
+                        console.log(m); // To track progress in the console
+                    }
+                }
+            ).then(({ data: { text } }) => {
+                // OCR result text
+                console.log(text);
+                analyzeReport(text);
+            }).catch(error => {
+                scanResultDiv.innerHTML = "<strong class='no-record'>Error scanning the report.</strong>";
+            });
+        }
+
+        // Function to analyze extracted text and detect specific problems
+        function analyzeReport(text) {
+            const scanResultDiv = document.getElementById('scanResult');
+
+            // Keywords to detect (expand this list as needed)
+            const keywords = {
+                "fever": "The patient was diagnosed with fever. Suggested medication: Paracetamol.",
+                "cold": "The patient was diagnosed with a cold. Suggested medication: Antihistamines."
+                // Add more keywords and conditions here
+            };
+
+            let foundKeywords = [];
+
+            // Check if the extracted text contains any of the keywords
+            for (const [keyword, message] of Object.entries(keywords)) {
+                if (text.toLowerCase().includes(keyword)) {
+                    foundKeywords.push(message);
+                }
+            }
+
+            // Display results based on analysis
+            if (foundKeywords.length > 0) {
+                scanResultDiv.innerHTML = `
+                    <strong>Report Analysis:</strong> <br>
+                    ${foundKeywords.join('<br><br>')}
+                `;
+            } else {
+                scanResultDiv.innerHTML = "<strong>No specific condition detected in the report.</strong>";
+            }
+        }
+    </script>
+  </script>
+
+</body>
+</html>

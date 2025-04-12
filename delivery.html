@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cancer Medicine Delivery System</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f9;
+    }
+
+    header {
+      background-color: #2a2e34;
+      color: white;
+      text-align: center;
+      padding: 1rem 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #2a2e34;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 15px;
+    }
+
+    .card-body h3 {
+      font-size: 1.2rem;
+      margin: 0 0 10px;
+      color: #333;
+    }
+
+    .card-body p {
+      font-size: 0.95rem;
+      margin: 5px 0;
+      color: #555;
+    }
+
+    .card-body .btn {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #2a2e34;
+      color: white;
+      text-align: center;
+      display: inline-block;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .badge {
+      background-color: #28a745;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Cancer Medicine Delivery System</h1>
+    <p>FDA Verified | 50+ Medicines | Home Delivery</p>
+  </header>
+
+  <div class="container">
+    <div class="section-title">Available Cancer Medicines</div>
+    <div class="grid" id="medicineGrid">
+      <!-- Medicine cards will be injected here -->
+    </div>
+  </div>
+
+  <script>
+    const medicines = Array.from({ length: 50 }, (_, i) => ({
+      name: `Medicine ${i + 1}`,
+      type: i % 2 === 0 ? 'Chemotherapy' : 'Immunotherapy',
+      price: `₹${(Math.random() * 10000 + 2000).toFixed(0)}`,
+      image: `https://via.placeholder.com/250x180?text=Med+${i + 1}`,
+      badge: 'FDA Verified'
+    }));
+
+    const grid = document.getElementById('medicineGrid');
+
+    medicines.forEach(med => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${med.image}" alt="${med.name}">
+        <div class="card-body">
+          <span class="badge">${med.badge}</span>
+          <h3>${med.name}</h3>
+          <p>Type: ${med.type}</p>
+          <p>Price: ${med.price}</p>
+          <a href="#" class="btn">Order Now</a>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  </script>
+</body>
+
+</html>

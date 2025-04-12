@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart BP Checker - Rural Mode</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial Rounded MT Bold', sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .wrapper {
+      background: white;
+      padding: 30px 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .wrapper h2 {
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .start-btn {
+      background: #2196f3;
+      color: white;
+      padding: 15px 25px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .start-btn:hover {
+      background: #1976d2;
+    }
+
+    .reading-box {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #222;
+    }
+
+    .result {
+      margin-top: 15px;
+      padding: 20px;
+      border-radius: 15px;
+      font-weight: bold;
+      font-size: 1rem;
+      display: none;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .emoji {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <h2>🧠 Smart BP Check (Rural Mode)</h2>
+    <button class="start-btn" onclick="simulateBP()">Start BP Check</button>
+    
+    <div class="reading-box" id="readingBox"></div>
+    
+    <div class="result" id="bpResult"></div>
+  </div>
+
+  <script>
+    function simulateBP() {
+      const readingBox = document.getElementById('readingBox');
+      const result = document.getElementById('bpResult');
+      
+      readingBox.textContent = "⏳ Checking BP... Please wait.";
+      result.style.display = "none";
+
+      // Simulate BP check (in real app, connect sensor here)
+      setTimeout(() => {
+        const sys = Math.floor(Math.random() * 50) + 100; // 100-150
+        const dia = Math.floor(Math.random() * 20) + 70;  // 70-90
+        readingBox.innerHTML = `📟 Systolic: <b>${sys}</b> mmHg <br> Diastolic: <b>${dia}</b> mmHg`;
+
+        let msg = "", bg = "", emoji = "";
+
+        if (sys < 120 && dia < 80) {
+          msg = "✅ BP is Normal. Good Health!";
+          bg = "#c8e6c9";
+          emoji = "😊";
+        } else if (sys >= 120 && sys < 130 && dia < 80) {
+          msg = "⚠️ Elevated BP. Reduce salt, relax.";
+          bg = "#fff9c4";
+          emoji = "😐";
+        } else if ((sys >= 130 && sys < 140) || (dia >= 80 && dia < 90)) {
+          msg = "🟠 Stage 1 Hypertension. Get advice.";
+          bg = "#ffe0b2";
+          emoji = "😟";
+        } else if (sys >= 140 || dia >= 90) {
+          msg = "🚨 High BP. Visit nearest health center.";
+          bg = "#ffcdd2";
+          emoji = "😰";
+        }
+
+        result.innerHTML = `<div class="emoji">${emoji}</div>${msg}`;
+        result.style.background = bg;
+        result.style.display = "block";
+
+        // Optional voice guidance
+        // let speak = new SpeechSynthesisUtterance(msg);
+        // window.speechSynthesis.speak(speak);
+
+      }, 2000); // simulate 2s delay
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patient Portal Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f3f4f6;
+    }
+    header {
+      background-color: #1e3a8a;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    h2, h3 {
+      color: #1f2937;
+      text-align: center;
+    }
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .dashboard-btn {
+      background-color: #1e40af;
+      color: white;
+      padding: 15px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .dashboard-btn:hover {
+      background-color: #111827;
+    }
+    .voice-section {
+      margin-top: 40px;
+      text-align: center;
+    }
+    .voice-section button {
+      background-color: #047857;
+      color: white;
+      padding: 12px 25px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #output {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #374151;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Cancer Patient Portal Dashboard
+  </header>
+  <div class="container">
+    <h2>Welcome, Patient</h2>
+    <div class="button-grid">
+      <button class="dashboard-btn" onclick="location.href='ehs.html'">🏥 EHS Portal</button>
+      <button class="dashboard-btn" onclick="location.href='appointment.html'">📅 Book My Appointment</button>
+      <button class="dashboard-btn" onclick="location.href='reminder.html'">⏰ Appointment Reminder</button>
+      <button class="dashboard-btn" onclick="location.href='lab.html'">🧪 Lab Reports</button>
+      <button class="dashboard-btn" onclick="location.href='medicines.html'">💊 My Medicines</button>
+      <button class="dashboard-btn" onclick="location.href='video-call.html'">📞 Video Consult</button>
+      <button class="dashboard-btn" onclick="location.href='upload-records.html'">📤 Upload Health Records</button>
+      <button class="dashboard-btn" onclick="location.href='symptom-checker.html'">🤒 Symptom Checker</button>
+      <button class="dashboard-btn" onclick="location.href='chatdoctor.html'">💬 Chat With Doctor</button>
+      <button class="dashboard-btn" onclick="location.href='nutrition.html'">🥗 Diet & Nutrition</button>
+      <button class="dashboard-btn" onclick="location.href='emergency.html'">🚨 Emergency Help</button>
+      <button class="dashboard-btn" onclick="location.href='faq.html'">📘 FAQs</button>
+    </div>
+
+    <div class="voice-section">
+      <h3>🎤 Multilingual Voice Navigation</h3>
+      <button onclick="startListening()">Speak Command</button>
+      <div id="output"></div>
+    </div>
+  </div>
+
+  <script>
+    function startListening() {
+      if (!('webkitSpeechRecognition' in window)) {
+        alert("Your browser doesn't support speech recognition. Use Chrome over HTTPS.");
+        return;
+      }
+
+      const recognition = new webkitSpeechRecognition();
+      recognition.lang = 'hi-IN'; // Use 'mr-IN' for Marathi, 'en-IN' for English
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.start();
+
+      recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript.toLowerCase();
+        document.getElementById("output").innerHTML = `You said: <strong>${transcript}</strong>`;
+
+        if (transcript.includes("appointment")) {
+          window.location.href = "appointment.html";
+        } else if (transcript.includes("ehs")) {
+          window.location.href = "ehs.html";
+        } else if (transcript.includes("reminder")) {
+          window.location.href = "reminder.html";
+        } else if (transcript.includes("report")) {
+          window.location.href = "lab-reports.html";
+        } else if (transcript.includes("medicine")) {
+          window.location.href = "medicines.html";
+        } else if (transcript.includes("video")) {
+          window.location.href = "video-call.html";
+        } else if (transcript.includes("upload")) {
+          window.location.href = "upload-records.html";
+        } else if (transcript.includes("symptom")) {
+          window.location.href = "symptom-checker.html";
+        } else if (transcript.includes("chat")) {
+          window.location.href = "chat-doctor.html";
+        } else if (transcript.includes("nutrition")) {
+          window.location.href = "nutrition.html";
+        } else if (transcript.includes("emergency")) {
+          window.location.href = "emergency.html";
+        } else if (transcript.includes("faq")) {
+          window.location.href = "faq.html";
+        } else {
+          document.getElementById("output").innerText = "Command not recognized.";
+        }
+      };
+
+      recognition.onerror = function(event) {
+        document.getElementById("output").innerText = `Voice recognition error: ${event.error}`;
+      };
+    }
+  </script>
+</body>
+</html>

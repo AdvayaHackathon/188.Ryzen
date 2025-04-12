@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Rural Health Box | CancerCare+</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #3f51b5, #e91e63);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: rgba(0,0,0,0.2);
+      backdrop-filter: blur(8px);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: #ddd;
+      margin-top: 10px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      display: grid;
+      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 25px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+    }
+
+    .card h2 {
+      font-size: 1.4rem;
+      color: #fff4f4;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #f4f4f4;
+    }
+
+    .status {
+      margin-top: 20px;
+      font-size: 0.95rem;
+      background: #4caf50;
+      padding: 6px 14px;
+      border-radius: 10px;
+      display: inline-block;
+      font-weight: bold;
+      color: white;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(6px);
+      font-size: 0.9rem;
+      color: #ccc;
+      margin-top: auto;
+    }
+
+    @media(max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>📦 Smart Rural Health Box</h1>
+    <p>Empowering rural health with smart offline-first technology</p>
+  </header>
+
+  <div class="container">
+
+    <div class="card">
+      <h2>🩺 BP Monitor</h2>
+      <p>Automated blood pressure monitoring with sync-ready offline storage. Alerts for abnormal levels.</p>
+      <div class="status">Sensor Active</div>
+    </div>
+
+    <div class="card">
+      <h2>🧪 Sugar Check</h2>
+      <p>Integrated glucometer for regular sugar tracking. Auto analysis & offline history saved in the box.</p>
+      <div class="status">Last Sync: 10 mins ago</div>
+    </div>
+
+    <div class="card">
+      <h2>❤️ ECG Scanner</h2>
+      <p>Portable ECG module to record real-time heart activity. Offline report view and emergency push available.</p>
+      <div class="status">ECG Normal</div>
+    </div>
+
+    <div class="card">
+      <h2>📶 Report Sync</h2>
+      <p>All readings are stored locally and pushed to the cloud once internet is detected.</p>
+      <div class="status">Sync Ready ✅</div>
+    </div>
+
+    <div class="card">
+      <h2>🌍 NGO / Govt Dashboard</h2>
+      <p>Track village-wise health data, alert thresholds, and deployment stats. Enables rural health planning.</p>
+      <div class="status">42 Villages Connected</div>
+    </div>
+
+  </div>
+
+  <footer>
+    &copy; 2025 Smart Health by Rishik ⚕️ | In Hack We Trust 💡
+  </footer>
+
+</body>
+</html>

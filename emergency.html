@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Emergency Help System</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(145deg, #f3f4f6, #e0f2fe);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .emergency-btn {
+      position: relative;
+      background-color: #ef4444;
+      color: white;
+      padding: 20px 60px;
+      font-size: 1.6rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 60px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+      transition: background-color 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+      70% { box-shadow: 0 0 0 30px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+
+    .emergency-btn:hover {
+      background-color: #b91c1c;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px 20px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      position: relative;
+      animation: slideDown 0.4s ease;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-content h2 {
+      color: #dc2626;
+      margin-bottom: 15px;
+    }
+
+    .modal-content p {
+      margin-bottom: 25px;
+      color: #374151;
+    }
+
+    .modal-content button {
+      margin: 10px 5px;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .call-btn { background-color: #1d4ed8; }
+    .call-btn:hover { background-color: #1e40af; }
+
+    .location-btn { background-color: #059669; }
+    .location-btn:hover { background-color: #047857; }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #dc2626;
+    }
+
+    .icon {
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="emergency-btn" onclick="openModal()">🚨 Emergency Help</button>
+
+  <div class="modal" id="emergencyModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2>Emergency Help Options</h2>
+      <p>Your location will be tracked and shared with the responders if needed.</p>
+      <button class="call-btn" onclick="callAmbulance()"><i class="fas fa-ambulance icon"></i> Call Ambulance</button>
+      <button class="call-btn" onclick="callPolice()"><i class="fas fa-shield-alt icon"></i> Call Police</button>
+      <button class="call-btn" onclick="callRelative()"><i class="fas fa-user-friends icon"></i> Call Relative</button>
+      <button class="location-btn" onclick="sendLocation()"><i class="fas fa-map-marker-alt icon"></i> Send Location</button>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById("emergencyModal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("emergencyModal").style.display = "none";
+    }
+
+    function callAmbulance() {
+      alert("📞 Calling the ambulance...");
+    }
+
+    function callPolice() {
+      alert("📞 Notifying nearby police station...");
+    }
+
+    function callRelative() {
+      alert("📞 Contacting emergency family number...");
+    }
+
+    function sendLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(pos) {
+          alert("📍 Location Sent:\nLatitude: " + pos.coords.latitude + "\nLongitude: " + pos.coords.longitude);
+        }, function(err) {
+          alert("⚠️ Could not get location: " + err.message);
+        });
+      } else {
+        alert("❌ Geolocation not supported by your browser.");
+      }
+    }
+  </script>
+
+</body>
+</html>

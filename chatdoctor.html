@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat with Doctor</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #e0f2fe;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .chat-container {
+      width: 400px;
+      max-height: 600px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-header {
+      background-color: #1e3a8a;
+      color: white;
+      padding: 15px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+    }
+    .chat-messages {
+      flex-grow: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #f8fafc;
+    }
+    .message {
+      margin-bottom: 15px;
+      max-width: 75%;
+      padding: 10px 15px;
+      border-radius: 15px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    .sent {
+      background: #1e40af;
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 0;
+    }
+    .received {
+      background: #e2e8f0;
+      color: #1e293b;
+      align-self: flex-start;
+      border-bottom-left-radius: 0;
+    }
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #cbd5e1;
+    }
+    .chat-input input {
+      flex-grow: 1;
+      padding: 15px;
+      border: none;
+      font-size: 1rem;
+      border-radius: 0 0 0 20px;
+      outline: none;
+    }
+    .chat-input button {
+      padding: 0 20px;
+      border: none;
+      background: #10b981;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      border-radius: 0 0 20px 0;
+      transition: background 0.3s ease;
+    }
+    .chat-input button:hover {
+      background: #059669;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">
+      👨‍⚕️ Chat with Dr. Anubhav (Oncologist)
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="message received">Hello! I’m Dr. Anubhav. How can I help you today?</div>
+      <div class="message sent">Doctor, I have been feeling fatigued after my last chemo session.</div>
+      <div class="message received">That’s common. Are you also experiencing any nausea or dizziness?</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userMessage" placeholder="Type your message...">
+      <button onclick="sendMessage()">➤</button>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('userMessage');
+      const msg = input.value.trim();
+      if (msg !== '') {
+        const msgContainer = document.createElement('div');
+        msgContainer.className = 'message sent';
+        msgContainer.textContent = msg;
+        document.getElementById('chatMessages').appendChild(msgContainer);
+        input.value = '';
+        input.focus();
+        scrollToBottom();
+        // Simulate reply (You can remove this in real implementation)
+        setTimeout(() => {
+          const reply = document.createElement('div');
+          reply.className = 'message received';
+          reply.textContent = "Thank you for your message. I’ll get back to you shortly.";
+          document.getElementById('chatMessages').appendChild(reply);
+          scrollToBottom();
+        }, 1500);
+      }
+    }
+
+    function scrollToBottom() {
+      const chat = document.getElementById('chatMessages');
+      chat.scrollTop = chat.scrollHeight;
+    }
+  </script>
+</body>
+</html>

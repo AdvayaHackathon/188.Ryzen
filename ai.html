@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Second Opinion Tool</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-purple-100 via-blue-50 to-gray-100 p-6">
+
+  <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-3xl p-10">
+    <div class="mb-8 text-center">
+      <h1 class="text-3xl font-extrabold text-[#01579b]">🤖 AI Second Opinion Tool</h1>
+      <p class="text-gray-600 mt-2">Upload patient data and get AI-powered diagnostic suggestions to validate your primary assessment.</p>
+    </div>
+
+    <form id="aiForm" class="space-y-6">
+      <div>
+        <label class="block text-left font-medium text-gray-700">Upload Patient Report (PDF/Image)</label>
+        <input type="file" accept=".pdf,.jpg,.jpeg,.png" class="mt-2 block w-full border border-gray-300 rounded-xl px-4 py-3" />
+      </div>
+
+      <div>
+        <label class="block text-left font-medium text-gray-700">Brief Case Description</label>
+        <textarea id="description" rows="5" class="mt-2 block w-full border border-gray-300 rounded-xl px-4 py-3" placeholder="Enter symptoms, previous treatments, and diagnosis here..."></textarea>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="bg-[#01579b] hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl shadow-md transition">
+          🔍 Get AI Opinion
+        </button>
+      </div>
+    </form>
+
+    <div id="resultContainer" class="mt-10 hidden">
+      <h2 class="text-2xl font-bold text-[#01579b] mb-3">AI Opinion:</h2>
+      <div id="aiResult" class="bg-gray-50 p-5 rounded-xl border border-gray-200 text-gray-800 whitespace-pre-line"></div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('aiForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const description = document.getElementById('description').value;
+
+      const response = await fetch('http://localhost:5000/api/second-opinion', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ description })
+      });
+
+      const data = await response.json();
+
+      if (data.result) {
+        document.getElementById('resultContainer').classList.remove('hidden');
+        document.getElementById('aiResult').textContent = data.result;
+      } else {
+        document.getElementById('aiResult').textContent = 'Error: ' + data.error;
+      }
+    });
+  </script>
+
+</body>
+</html>

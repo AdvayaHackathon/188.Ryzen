@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Environmental Health and Safety Portal</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f8fafc, #e0f2fe);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #1e40af;
+      margin-bottom: 30px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    label {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      color: #1f2937;
+    }
+    input[type="number"] {
+      padding: 10px;
+      border: 2px solid #1e40af;
+      border-radius: 8px;
+      width: 250px;
+      font-size: 1rem;
+    }
+    .btn {
+      margin-top: 15px;
+      background-color: #1e40af;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #374151;
+    }
+    .patient-details {
+      background-color: #f9fafb;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .info-title {
+      font-size: 1.3rem;
+      color: #111827;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #1e40af;
+      padding-bottom: 10px;
+    }
+    .detail-box {
+      background: #f1f5f9;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .label {
+      font-weight: bold;
+      color: #1e293b;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    ul li {
+      margin-bottom: 8px;
+      color: #374151;
+    }
+    .voice-btn {
+      margin-top: 20px;
+      background-color: #10b981;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .voice-btn:hover {
+      background-color: #059669;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Environmental Health and Safety Portal</h2>
+    <form id="tokenForm">
+      <label for="token">🔐 Enter Your Token Number:</label>
+      <input type="number" id="token" name="token" placeholder="Token Number" required>
+      <button type="submit" class="btn">🔎 Get EHS Details</button>
+    </form>
+
+    <button class="voice-btn" onclick="startVoiceInput()">🎤 बोलकर टोकन नंबर बताएं (Speak Token Number)</button>
+
+    <div class="patient-details" id="patientDetails" style="display: none;">
+      <h2 class="info-title">📝 Patient Details & Safety Guidelines</h2>
+
+      <div class="detail-box">
+        <p><span class="label">Patient Name:</span> <span id="patientName"></span></p>
+        <p><span class="label">Age:</span> <span id="patientAge"></span></p>
+        <p><span class="label">Gender:</span> <span id="patientGender"></span></p>
+        <p><span class="label">Type of Cancer:</span> <span id="cancerType"></span></p>
+      </div>
+
+      <div class="detail-box">
+        <p><span class="label">Next Appointment:</span> <span id="appointmentDate"></span></p>
+        <p><span class="label">Treatment Type:</span> <span id="treatmentType"></span></p>
+        <p><span class="label">Oncologist:</span> <span id="oncologistName"></span></p>
+      </div>
+
+      <div class="detail-box">
+        <p class="label">🛡️ Environmental Health & Safety Guidelines:</p>
+        <ul>
+          <li>Ensure proper ventilation in the treatment area.</li>
+          <li>Use protective gear when handling chemo drugs.</li>
+          <li>Dispose of hazardous materials as per EHS protocol.</li>
+          <li>Avoid strong chemical cleaners during treatment.</li>
+          <li>Follow radiation safety in case of radiotherapy.</li>
+        </ul>
+      </div>
+
+      <div class="detail-box">
+        <p class="label">💡 Additional Safety Instructions:</p>
+        <ul>
+          <li>Wear a mask in public to prevent infection.</li>
+          <li>Keep home clean and sanitized.</li>
+          <li>Maintain diet as prescribed by a dietitian.</li>
+          <li>Report any fatigue, nausea, or dizziness promptly.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('tokenForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const tokenNumber = document.getElementById('token').value;
+      fetchDetails(tokenNumber);
+    });
+
+    function fetchDetails(tokenNumber) {
+      if (tokenNumber === "12345") {
+        document.getElementById('patientName').textContent = "John Doe";
+        document.getElementById('patientAge').textContent = "45";
+        document.getElementById('patientGender').textContent = "Male";
+        document.getElementById('cancerType').textContent = "Lung Cancer";
+        document.getElementById('appointmentDate').textContent = "2024-09-15";
+        document.getElementById('treatmentType').textContent = "Chemotherapy";
+        document.getElementById('oncologistName').textContent = "Dr. Emily Richards";
+
+        document.getElementById('patientDetails').style.display = 'block';
+      } else {
+        alert('⚠️ Token number not found. Please enter a valid token.');
+      }
+    }
+
+    function startVoiceInput() {
+      if (!('webkitSpeechRecognition' in window)) {
+        alert('Speech Recognition not supported on this browser. Please use Chrome.');
+        return;
+      }
+
+      const recognition = new webkitSpeechRecognition();
+      recognition.lang = 'hi-IN';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.start();
+
+      recognition.onresult = function(event) {
+        const speechResult = event.results[0][0].transcript;
+        const number = speechResult.replace(/\D/g, '');
+        if (number) {
+          document.getElementById('token').value = number;
+          fetchDetails(number);
+        } else {
+          alert('🔁 Could not recognize token number. Try again.');
+        }
+      };
+
+      recognition.onerror = function(event) {
+        alert('❌ Speech recognition error: ' + event.error);
+      };
+    }
+  </script>
+</body>
+</html>

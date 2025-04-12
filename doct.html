@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Dashboard - Cancer App</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #f8fafc, #e0f2fe);
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      text-align: center;
+      background-color: #1e40af;
+      color: white;
+      padding: 20px 0;
+    }
+    .header h1 {
+      margin: 0;
+    }
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin: 40px auto;
+      max-width: 900px;
+    }
+    .doc-btn {
+      background: #1e40af;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .doc-btn:hover {
+      background: #3749bb;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Doctor Dashboard - Cancer Care</h1>
+  </div>
+
+  <div class="button-container">
+    <button class="doc-btn">👥 View Patients</button>
+    <button class="doc-btn">📄 Patient Reports</button>
+    <button class="doc-btn">💬 Doctor Chat</button>
+    <button class="doc-btn">📅 Manage Appointments</button>
+    <button class="doc-btn">📝 Add Case Notes</button>
+    <button class="doc-btn">💊 Prescribe Medicine</button>
+    <button class="doc-btn">🧪 Prescribe Tests</button>
+    <button class="doc-btn">📂 Patient History</button>
+    <button class="doc-btn">📈 Treatment Progress</button>
+    <button class="doc-btn">🎥 Video Consultation</button>
+    <button class="doc-btn">📢 Send Alerts</button>
+    <button class="doc-btn">🚨 Emergency Case Review</button>
+  </div>
+</body>
+</html>

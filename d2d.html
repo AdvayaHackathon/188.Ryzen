@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>D2D Portal - My Cancer App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white min-h-screen p-6">
+
+  <div class="max-w-5xl mx-auto p-6 bg-gray-900 shadow-xl rounded-3xl">
+    <!-- Header -->
+    <header class="flex justify-between items-center mb-10">
+      <div class="flex items-center space-x-4">
+        <img src="https://cdn-icons-png.flaticon.com/512/2817/2817989.png" class="w-12 h-12" alt="logo" />
+        <h1 class="text-2xl font-bold text-white">Doctor-to-Doctor Portal</h1>
+      </div>
+      <nav class="space-x-6">
+        <a href="#" class="hover:underline">Home</a>
+        <a href="#" class="hover:underline">Dashboard</a>
+        <a href="#" class="hover:underline">Help</a>
+      </nav>
+    </header>
+
+    <!-- AI Second Opinion -->
+    <div class="bg-gray-800 p-6 rounded-2xl mb-10">
+      <h2 class="text-xl font-semibold mb-4">AI Second Opinion</h2>
+      <textarea id="description" rows="4" class="w-full p-3 rounded-lg bg-gray-900 border border-gray-700 text-white mb-4" placeholder="Describe the case..."></textarea>
+      <button id="aiBtn" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg">Get AI Opinion</button>
+      <div id="aiResult" class="mt-4 text-green-400 whitespace-pre-wrap hidden"></div>
+    </div>
+
+    <!-- Chat Section -->
+    <div class="bg-gray-800 p-6 rounded-2xl">
+      <h2 class="text-xl font-semibold mb-4">D2D Real-time Chat</h2>
+
+      <div class="flex items-center mb-4 space-x-4">
+        <label for="chatType" class="text-sm text-gray-400">Send To:</label>
+        <select id="chatType" class="bg-gray-900 text-white px-4 py-2 rounded-lg border border-gray-700">
+          <option value="doctor">👨‍⚕️ Human Doctor</option>
+          <option value="ai">🤖 AI Doctor</option>
+        </select>
+      </div>
+
+      <div id="chatBox" class="h-64 overflow-y-scroll bg-gray-900 p-4 rounded-lg border border-gray-700 mb-4"></div>
+
+      <div class="flex">
+        <input id="chatInput" type="text" placeholder="Type your message..." class="flex-1 p-3 bg-gray-900 text-white rounded-l-lg border border-gray-700" />
+        <button id="sendChat" class="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-r-lg">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // AI Opinion Simulated
+    document.getElementById('aiBtn').addEventListener('click', () => {
+      const desc = document.getElementById('description').value;
+      const aiResult = document.getElementById('aiResult');
+      aiResult.classList.remove("hidden");
+      aiResult.innerText = `🧠 AI Suggestion:\n\nBased on input:\n"${desc}"\n\n👉 Consider further imaging and tumor marker analysis.`;
+    });
+
+    // D2D Chat
+    const chatBox = document.getElementById("chatBox");
+    const sendChat = document.getElementById("sendChat");
+    const chatType = document.getElementById("chatType");
+
+    sendChat.addEventListener("click", () => {
+      const chatInput = document.getElementById("chatInput");
+      const message = chatInput.value.trim();
+      if (!message) return;
+
+      const recipient = chatType.value;
+      chatBox.innerHTML += `<p><strong>🩺 You:</strong> ${message}</p>`;
+      chatInput.value = "";
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      if (recipient === "ai") {
+        const replies = [
+          "Consider PET scan for better accuracy.",
+          "Try chemo + radiation as a combo.",
+          "CT-guided biopsy could help.",
+          "Multidisciplinary board review recommended.",
+          "Genomic profiling may assist further."
+        ];
+        const reply = replies[Math.floor(Math.random() * replies.length)];
+
+        setTimeout(() => {
+          chatBox.innerHTML += `<p><strong>🤖 AI:</strong> ${reply}</p>`;
+          chatBox.scrollTop = chatBox.scrollHeight;
+        }, 2000);
+      }
+    });
+  </script>
+</body>
+</html>

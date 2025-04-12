@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CancerCare+ | Next-Gen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ff4e75, #3f5efb);
+      min-height: 100vh;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 600;
+      color: #ffffff;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      color: #fce4ec;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      padding: 30px;
+      width: 90%;
+      max-width: 1200px;
+    }
+
+    .glass-button {
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      padding: 30px;
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 500;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .glass-button:hover {
+      transform: translateY(-10px) scale(1.05);
+      background: rgba(255, 255, 255, 0.2);
+      border-color: #fff;
+    }
+
+    .glass-button span {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 25px 10px;
+      font-size: 0.95rem;
+      background: rgba(255,255,255,0.1);
+      width: 100%;
+      backdrop-filter: blur(6px);
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>CancerCare+ App</h1>
+    <p>Your next-gen companion for cancer care ✨</p>
+  </header>
+
+  <div class="container">
+    <div class="glass-button" onclick="location.href='doctor.html'">
+      <span>👨‍⚕️</span> Doctor
+    </div>
+    <div class="glass-button" onclick="location.href='patients.html'">
+      <span>🧑‍🤝‍🧑</span> For Patients
+    </div>
+    <div class="glass-button" onclick="location.href='stories.html'">
+      <span>💪</span> Survival Stories
+    </div>
+    <div class="glass-button" onclick="location.href='campaigns.html'">
+      <span>🎗️</span> Campaigns
+    </div>
+    <div class="glass-button" onclick="location.href='help.html'">
+      <span>🤝</span> Need Help?
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 CancerCare+ | Designed with 💖 by Aditya
+  </footer>
+
+</body>
+</html>

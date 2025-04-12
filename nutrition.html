@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Diet & Nutrition</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #fefce8, #ecfccb);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 950px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+    h2 {
+      text-align: center;
+      color: #15803d;
+      margin-bottom: 25px;
+    }
+    .section-title {
+      font-size: 1.3rem;
+      color: #064e3b;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #16a34a;
+      padding-bottom: 6px;
+    }
+    .card {
+      background-color: #f0fdf4;
+      border-left: 6px solid #22c55e;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+    .card-title {
+      font-weight: bold;
+      color: #065f46;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+    .card-text {
+      font-size: 0.95rem;
+      color: #374151;
+    }
+    ul {
+      margin-top: 10px;
+      margin-left: 20px;
+      color: #374151;
+    }
+    .voice-btn {
+      margin-top: 30px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 10px 18px;
+      font-size: 1rem;
+      background-color: #22c55e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .voice-btn:hover {
+      background-color: #16a34a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🥗 Diet & Nutrition for Cancer Care</h2>
+
+    <div class="section-title">🍱 Recommended Daily Nutrition</div>
+    <div class="card">
+      <div class="card-title">Balanced Meal Plan</div>
+      <ul>
+        <li>Include proteins like eggs, dal, paneer, or lean meats.</li>
+        <li>Whole grains like brown rice, oats, or millets.</li>
+        <li>5 servings of vegetables and 2 fruits daily.</li>
+        <li>Healthy fats like nuts, seeds, or olive oil.</li>
+        <li>Stay well hydrated – 8-10 glasses of water a day.</li>
+      </ul>
+    </div>
+
+    <div class="section-title">🚫 Foods to Avoid During Treatment</div>
+    <div class="card">
+      <ul>
+        <li>Raw or undercooked seafood and eggs.</li>
+        <li>Street food or unhygienic items.</li>
+        <li>Spicy, overly oily, or sugary foods.</li>
+        <li>Alcohol and caffeine in excess.</li>
+      </ul>
+    </div>
+
+    <div class="section-title">🕒 Sample Daily Diet Chart</div>
+    <div class="card">
+      <div class="card-title">Meal Schedule</div>
+      <ul>
+        <li><strong>Morning:</strong> Soaked almonds + lukewarm water + oats porridge</li>
+        <li><strong>Mid-Morning:</strong> Coconut water + 1 banana</li>
+        <li><strong>Lunch:</strong> Brown rice + dal + boiled veggies + curd</li>
+        <li><strong>Evening:</strong> Fruit salad + herbal tea</li>
+        <li><strong>Dinner:</strong> Multigrain roti + sabzi + moong dal soup</li>
+      </ul>
+    </div>
+
+    <div class="section-title">💡 Nutrition Tips from Dietitian</div>
+    <div class="card">
+      <ul>
+        <li>Eat small, frequent meals to maintain energy.</li>
+        <li>Cook food thoroughly to kill bacteria.</li>
+        <li>Use mild spices to avoid nausea.</li>
+        <li>Maintain a food diary to track intake.</li>
+      </ul>
+    </div>
+
+    <button class="voice-btn" onclick="speakDiet()">🔊 Speak Diet Plan</button>
+  </div>
+
+  <script>
+    function speakDiet() {
+      const message = `
+        Your recommended diet includes protein, whole grains, fruits, vegetables, and healthy fats.
+        Avoid spicy and unhygienic food. Drink 8 to 10 glasses of water.
+        Morning: almonds, oats.
+        Lunch: brown rice, dal, vegetables.
+        Dinner: multigrain roti and soup.
+        Stay strong and follow your nutrition plan.`;
+        
+      const utterance = new SpeechSynthesisUtterance(message);
+      utterance.lang = 'en-IN';
+      window.speechSynthesis.speak(utterance);
+    }
+  </script>
+</body>
+</html>

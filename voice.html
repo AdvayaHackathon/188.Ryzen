@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Voice Navigation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #6200ea;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    #output {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Multilingual Voice Navigation</h1>
+  <button onclick="startListening()">🎤 Speak Command</button>
+  <div id="output"></div>
+
+  <script>
+    const output = document.getElementById("output");
+
+    function startListening() {
+      if (!('webkitSpeechRecognition' in window)) {
+        alert("Your browser doesn't support speech recognition. Use Chrome.");
+        return;
+      }
+
+      const recognition = new webkitSpeechRecognition();
+      recognition.lang = 'hi-IN'; // Use 'mr-IN' for Marathi, 'en-IN' for English
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.start();
+
+      recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        output.innerHTML = `You said: <strong>${transcript}</strong>`;
+
+        // Example: respond to commands
+        if (transcript.includes("appointment")) {
+          window.location.href = "appointment.html";
+        } else if (transcript.includes("EHS")) {
+          window.location.href = "ehs.html";
+        }
+      };
+
+      recognition.onerror = function(event) {
+        output.innerText = `Voice recognition error: ${event.error}`;
+      };
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<script>
+  const chatBox = document.getElementById("chatBox");
+  const sendChat = document.getElementById("sendChat");
+
+  sendChat.addEventListener("click", async () => {
+    const chatInput = document.getElementById("chatInput");
+    const message = chatInput.value.trim();
+    if (!message) return;
+
+    // Show user's message
+    chatBox.innerHTML += `<p><strong>🧑‍⚕️ You:</strong> ${message}</p>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
+    chatInput.value = "";
+
+    try {
+      // Send to backend
+      const res = await fetch("http://localhost:5000/api/chat-response", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+      });
+      const data = await res.json();
+
+      // Show AI response
+      chatBox.innerHTML += `<p><strong>🤖 AI:</strong> ${data.reply}</p>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
+    } catch (err) {
+      chatBox.innerHTML += `<p><strong>❌ Error:</strong> Couldn't reach backend.</p>`;
+    }
+  });
+</script>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Dashboard - My Cancer App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-purple-100 via-blue-50 to-gray-100 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <header class="w-full bg-white shadow-md py-4 px-8 flex justify-between items-center sticky top-0 z-50">
+    <div class="flex items-center space-x-3">
+      <img src="https://cdn-icons-png.flaticon.com/512/2817/2817989.png" alt="Cancer App Logo" class="h-10 w-10">
+      <h1 class="text-2xl font-bold text-[#01579b]">My Cancer App</h1>
+    </div>
+    <nav class="space-x-4">
+      <a href="#" class="text-[#01579b] hover:text-blue-700 font-medium">Home</a>
+      <a href="#" class="text-[#01579b] hover:text-blue-700 font-medium">About</a>
+      <a href="#" class="text-[#01579b] hover:text-blue-700 font-medium">Help</a>
+    </nav>
+  </header>
+
+  <!-- Main Section -->
+  <main class="flex-grow flex items-center justify-center p-6">
+    <div class="bg-white p-10 rounded-3xl shadow-2xl text-center w-full max-w-5xl border-t-8 border-[#01579b]">
+      <h2 class="text-3xl font-extrabold text-[#01579b] mb-2">Doctor Dashboard</h2>
+      <p class="text-gray-600 mb-8">AI-powered tools for doctors to enhance cancer treatment accuracy and speed.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <a href="symp.html" class="block bg-[#01579b] text-white px-6 py-5 rounded-xl text-lg font-semibold shadow-md hover:bg-blue-700 transition text-center">
+          🧪 Predict Test Name
+        </a>
+        <a href="symp1.html" class="block bg-[#01579b] text-white px-6 py-5 rounded-xl text-lg font-semibold shadow-md hover:bg-blue-700 transition text-center">
+          💊 Suggest Cancer Medicine
+        </a>
+        <a href="drug.html" class="block bg-[#01579b] text-white px-6 py-5 rounded-xl text-lg font-semibold shadow-md hover:bg-blue-700 transition text-center">
+          🧬 Drug Interactions Checker
+        </a>
+        <a href="d2d.html" class="block bg-[#01579b] text-white px-6 py-5 rounded-xl text-lg font-semibold shadow-md hover:bg-blue-700 transition text-center">
+          📡 D2D Communication
+        </a>
+        <a href="doctemer.html" class="block bg-[#01579b] text-white px-6 py-5 rounded-xl text-lg font-semibold shadow-md hover:bg-blue-700 transition text-center">
+          🦺 Emergency Case
+        </a>
+        <a href="ai-second-opinion.html" class="block bg-[#01579b] text-white px-6 py-5 rounded-xl text-lg font-semibold shadow-md hover:bg-blue-700 transition text-center">
+          📅 Manage Appointment
+        </a>
+        <a href="ai-second-opinion.html" class="block bg-[#01579b] text-white px-6 py-5 rounded-xl text-lg font-semibold shadow-md hover:bg-blue-700 transition text-center">
+          📢 Send Alerts
+        </a>
+        <a href="ai-second-opinion.html" class="block bg-[#01579b] text-white px-6 py-5 rounded-xl text-lg font-semibold shadow-md hover:bg-blue-700 transition text-center">
+          📝Add case notes
+        </a>
+        
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
